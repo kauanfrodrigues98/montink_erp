@@ -11,6 +11,8 @@ if($_SERVER['REQUEST_METHOD'] != 'POST'){
 
 ?>
 
+<?php include './app/components/alert.php'; ?>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">

@@ -16,8 +16,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $pedido->frete = $_POST['frete_hidden'];
     $pedido->subtotal = $_POST['subtotal_hidden'];
     $pedido->total = $_POST['total_hidden'];
+    $pedido->email = $_POST['email'];
 
     $response = $pedidosController->create($pedido);
+
+    if($response) {
+        $_SESSION['response'] = 'Pedido realizado com sucesso!';
+    } else {
+        $_SESSION['response'] = 'Houve um problema ao realizar pedido.';
+    }
+
+    header('Location: /pedidos');
+    exit;
 }
 
 $produtosController = new ProdutosController();
@@ -139,12 +149,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['add'])) {
     
                         <div class="row mb-3">
                             <div class="col-md-12 mb-3">
-                                <label for="">CEP</label>
-                                <input type="text" id="cep" name="cep" class="form-control form-control-sm" onkeyup="getCep(this.value)" maxlength="8">
+                                <label for="">CEP <span class="text-danger">*</span></label>
+                                <input type="text" id="cep" name="cep" class="form-control form-control-sm" onkeyup="getCep(this.value)" maxlength="8" required>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <small id="endereco"></small>
                             </div>
+
+                            <div class="col-md-12 mb-3">
+                                <label for="email">E-mail <span class="text-danger">*</span></label>
+                                <input type="email" id="email" name="email" class="form-control form-control-sm" required>
+                            </div>
+
                             <!-- <div class="col-md-12 mb-3">
                                 <label for="">Cupom</label>
                                 <input type="text" id="cupom" name="cupom" class="form-control form-control-sm">

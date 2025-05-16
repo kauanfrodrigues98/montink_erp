@@ -12,7 +12,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cupom->min_price = $_POST['min_price'];;
 
     $controller = new CupomController();
-    $controller->create($cupom);
+    $response = $controller->create($cupom);
+
+    if($response) {
+        $_SESSION['response'] = 'Cupom cadastrado com sucesso!';
+    } else {
+        $_SESSION['response'] = 'Houve um problema ao cadastrar cupom.';
+    }
+
+    header('Location: /cupom');
+    exit;
 }
 
 ?>

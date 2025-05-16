@@ -17,7 +17,7 @@ class PedidosController
     public function create($pedido) {
         try {
             $this->pedidosService->create($pedido);
-            $this->pedidosService->sendEmail('joyce.galvao7@gmail.com');
+            $this->pedidosService->sendEmail($pedido->email);
             return true;
         } catch(\Exception $e) {
             echo $e->getMessage();
